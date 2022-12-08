@@ -1,12 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from 'react'
 import './App.css';
+import {Routes,Route} from 'react-router-dom'
+import LoginPage from './pages/LoginPage'
+import SignUpPage from './pages/SignUpPage';
+import { config } from './config/Config';
+import { initializeApp } from 'firebase/app';
+import BrandsData from './pages/SetCasinoDataPage';
+import AuthRoute from './components/AuthRoute'
+
+initializeApp(config.firebaseConfig);
 
 function App() {
   return (
-    <div className="App">
-      <h1> firebase brands data managment </h1>
-    </div>
+    
+      <Routes>
+        <Route path='/' element={<AuthRoute><BrandsData/></AuthRoute>} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/signUp' element={< SignUpPage />} />
+
+      </Routes>
+    
   );
 }
 
