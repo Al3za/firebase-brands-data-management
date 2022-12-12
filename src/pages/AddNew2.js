@@ -3,13 +3,11 @@ import React, { useRef } from "react";
 import { db } from '../App';
 
 const AddNewInfo = (path) => {
-  //  console.log(path, 'ciao')
     const name = useRef()
     const info = useRef()
     const link = useRef()
     const bonus = useRef()
     const docDir = path.path
-    console.log(docDir, 'hej')
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -20,17 +18,16 @@ const AddNewInfo = (path) => {
             bonus: bonus.current.value,
             info: info.current.value
         })
-        console.log(docDir, name.current.value)
         e.target.reset()
     }
     return (
         <div> 
             <h1> welcome</h1>
                 <form onSubmit={handleSubmit} >
-                    name <input ref={name} />
-                    link  <input ref={link} />
-                    bonus <input ref={bonus} />
-                    info  <input ref={info} />
+                    <p>name <input ref={name} /></p>
+                    <p>link  <input ref={link} /></p>
+                    <p>bonus <input ref={bonus} /></p>
+                    <p>info  <input ref={info} /></p>
                     <button type="submit" >Add</button>
                 </form>
         </div>

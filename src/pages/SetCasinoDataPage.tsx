@@ -2,15 +2,12 @@ import { getAuth, signOut } from 'firebase/auth';
 import { initializeApp } from 'firebase/app'
 import { config } from '../config/Config'
 import {
-    addDoc,
     collection,
     CollectionReference,
-    deleteDoc,
-    doc,
+    
     DocumentData,
     getFirestore,
-    onSnapshot,
-    query
+    
 } from 'firebase/firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import ChildrenList from './ChildrenList';
@@ -34,37 +31,33 @@ import AddNew from './AddNew';
   const CasinoDataCollection = createCollection<CasinoItems>('CasinoInfo')
     
 
- const BrandsData = () => {
-
+const BrandsData = () => {
    
    const [values, loading, error] = useCollectionData(CasinoDataCollection)
     
-        const auth = getAuth()  
+   const auth = getAuth()  
     
-   
-   
-     return (
+  return (
+       
          <div>
-            
-         <p><button onClick={() => signOut(auth)}> sign out of Firebase </button></p>
-
-         <p>welcome, please insert the name of the brand</p>
           {loading && 'loading...'}
          <ul>
            {values?.length !== 0 ? (
              <div>
                {values?.map((doc) => {
-             return <div key={Math.random()}> <li>{doc.name}</li>
-               <ChildrenList path={`CasinoInfo/${doc.name}/children`}/>
+             return <div key={Math.random()}> <h1>{doc.name}</h1> 
+               <ChildrenList path={`CasinoInfo/${doc.name}/children`}/> 
              </div>
            })}
              </div>
            ) : (
-            <AddNew path={'CasinoInfo'} />
+            <div>
+              <p>welcome, please insert the name of the brand</p>
+              <AddNew path={'CasinoInfo'} />
+            </div>
            ) }
-           
          </ul> 
-         
+         <p><button onClick={() => signOut(auth)}> sign out of Firebase </button></p>
         </div>
     ) 
  }
