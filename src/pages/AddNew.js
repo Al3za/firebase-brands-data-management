@@ -5,7 +5,6 @@ import { db } from '../App';
 const AddNew = (path) => {
     const name = useRef()
     const docDir = path.path
-    //console.log(docDir,'hej')
 
     async function handleSubmit(e) {
        e.preventDefault();
@@ -14,12 +13,12 @@ const AddNew = (path) => {
         e.target.reset()
     }
     return (
-        <li>
+        <div>
             <form onSubmit={handleSubmit} >
                 <input ref={name}/>
                 <button type="submit" >Add</button>
             </form>
-        </li>
+        </div>
     )
 }
 

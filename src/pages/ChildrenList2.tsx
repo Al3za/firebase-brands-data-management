@@ -1,4 +1,3 @@
-import { getAuth, signOut } from 'firebase/auth';
 import { initializeApp } from 'firebase/app'
 import { config } from '../config/Config'
 import {
@@ -9,7 +8,7 @@ import {
 } from 'firebase/firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import AddNew from './AddNew';
-import ChildrenList2 from './ChildrenList2';
+import AddNewInfo from './AddNew2';
 import { useNavigate } from 'react-router-dom';
 
   const app = initializeApp(config.firebaseConfig)
@@ -28,29 +27,28 @@ import { useNavigate } from 'react-router-dom';
      info: string,
      link: string
      bonus:string
-};
+  };
+ 
 
+export default function ChildrenList2(path: any) {
 
-
-export default function ChildrenList(path: any) {
-
-  const navigate = useNavigate()
+  //const navigate= useNavigate()
+  const CasinoPath2 = path.path
+  console.log(CasinoPath2,'hejsanssss')
   
-  const CasinoPath = path.path
-  //console.log(CasinoPath,'hej')
-  
-  const CasinoDataCollection = createCollection<CasinoItems>( `${CasinoPath}` )
+  const CasinoDataCollection = createCollection<CasinoItems>( `${CasinoPath2}` )
   const [values, loading, error] = useCollectionData(CasinoDataCollection)
 
-  return <ul> {values?.map((doc) => {
-    return<div>
-      <li key={Math.random()}> {doc.name} </li> 
-      <ChildrenList2 path={`${CasinoPath}/${doc.name}/children`}/>
-      <button onClick={(e) => navigate('/test')}> modify </button>  
-    </div>
-  })} add casinos  <AddNew path={CasinoPath} />
-  </ul>
+  
+   return  <div> {values?.map((doc) => {
+     return <div  key={Math.random()}>
+       <li> {doc.name} {doc.bonus} {doc.info} {doc.link} </li> 
+       
+     </div>
+   })}
+         < AddNewInfo path={CasinoPath2} />   
+   </div>
 }
 
 
-///<ChildrenList2 path={`${CasinoPath}/${doc.name}/children`}/>
+
