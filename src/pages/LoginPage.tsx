@@ -17,7 +17,6 @@ const LoginPage = () => {
             .then((userCredentals) => {
                 setAuthin(true)
                 const user = userCredentals.user.displayName
-                console.log(user,'ciao')
                 navigate('/')
             }).catch((error) => {
                 const errorCode = error.code

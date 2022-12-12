@@ -1,85 +1,67 @@
 import { getAuth, signOut } from 'firebase/auth';
 import { initializeApp } from 'firebase/app'
 import { config } from '../config/Config'
-//import SignOutButton from './pages/SignOut'
 import {
-    addDoc,
     collection,
     CollectionReference,
-    deleteDoc,
-    doc,
+    
     DocumentData,
     getFirestore,
-    onSnapshot,
-    query
+    
 } from 'firebase/firestore'
- import { useEffect, useState } from 'react';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import ChildrenList from './ChildrenList';
+import AddNew from './AddNew';
 
-  const app = initializeApp(config.firebaseConfig)
-  const firestore = getFirestore();
-  const db=getFirestore(app)
-
-
-   const createCollection = <T = DocumentData>(collectionName: string) => {
-     return collection(firestore, collectionName) as CollectionReference<T>;
-  }; // den är vår collection reference
+   const app = initializeApp(config.firebaseConfig)
+   const firestore = getFirestore();
+   const db=getFirestore(app)
+     const createCollection = <T = DocumentData>(collectionName: string) => {
+       return collection(firestore, collectionName) as CollectionReference<T>;
+    }; // den är vår collection reference
  
-  interface TodoItem {
-     id?: string,
-     text: string,
-     timeStamp: Date
-  };
- 
- const todosCollection = createCollection<TodoItem>('todos')
+   interface CasinoItems {
+      id?: string,
+      name: string,
+      timeStamp: Date,
+      info: string,
+      link: string
+      bonus:string
+   };
+  const CasinoDataCollection = createCollection<CasinoItems>('CasinoInfo')
     
 
- const BrandsData = () => {
-
- const [todoText, setTodoText] = useState<string>('');
- const [todos, setTodos] = useState<TodoItem[]>([])
+const BrandsData = () => {
+   
+   const [values, loading, error] = useCollectionData(CasinoDataCollection)
     
-      const auth = getAuth()  
-      useEffect(() => {
-          const q = query(todosCollection)
-          const unsubscribe = onSnapshot(q, (querySnapshot) => {
-              const latest: TodoItem[] = []
-              querySnapshot.forEach((doc) => {
-                  latest.push(doc.data())
-              })
-              setTodos(latest)
-          })
-          return unsubscribe
-      }, [])
-     
-      const removeTodo = async (item: TodoItem) => {
-        const docRef = doc(firestore, 'todos', item.id || '')
-        deleteDoc(docRef)
-        // not working yet
-      }
-     
-      const addTodo = async (text: string) => {
-        setTodoText('');
-        addDoc(todosCollection, {
-          // addDoc adderar en document :text and timestamp i vår collektion
-          text: text,
-          timeStamp: new Date()
-        })
-      };
-
-     return (
+   const auth = getAuth()  
+    
+  return (
+       
          <div>
+          {loading && 'loading...'}
+         <ul>
+           {values?.length !== 0 ? (
              <div>
-                {todos.map((item) => {
-          return <div>
-            <li key={item.id}>{item.text}</li> <span onClick={() => removeTodo(item)} >delete</span>
-          </div>
-        })}
-      </div>
-      <input type="text" value={todoText} onChange={(e) => setTodoText(e.target.value)} />
-         <button onClick={(e) => addTodo(todoText)}> send </button>
-         <button onClick={() => signOut(auth)}> sign out of Firebase </button>
+               {values?.map((doc) => {
+             return <div key={Math.random()}> <h1>{doc.name}</h1> 
+               <ChildrenList path={`CasinoInfo/${doc.name}/children`}/> 
+             </div>
+           })}
+             </div>
+           ) : (
+            <div>
+              <p>welcome, please insert the name of the brand</p>
+              <AddNew path={'CasinoInfo'} />
+            </div>
+           ) }
+         </ul> 
+         <p><button onClick={() => signOut(auth)}> sign out of Firebase </button></p>
         </div>
     ) 
  }
 
- export default BrandsData
+export default BrandsData
+ 
+ 

@@ -15,7 +15,6 @@ const AuthRoute = (props:any) => {
     
     const AuthCheck = onAuthStateChanged(auth, (user) => {
         if (user) {
-            console.log(user.displayName,'hej')
             setLoading(false)
         } else {
             console.log('Unauthorized')
