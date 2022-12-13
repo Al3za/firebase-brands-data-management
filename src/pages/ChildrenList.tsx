@@ -39,10 +39,11 @@ export default function ChildrenList2(path: any) {
   
    return  <div> {values?.map((doc) => {
      return <div  key={Math.random()}>
-         <li> name {doc.name}</li>  <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li> <br/>
+       <li> name {doc.name}</li>  <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li> <br />  
      </div>
    })}
-        <AddNewInfo path={CasinoPath}  />   
+     <AddNewInfo path={`${CasinoPath}`}  /> 
+          
    </div>
 }
 

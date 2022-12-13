@@ -34,25 +34,24 @@ import AddNew from './AddNew';
 const BrandsData = () => {
    
    const auth = getAuth()  
-   const user = auth.currentUser?.email
+  const userID = auth.currentUser?.uid
    
    const CasinoDataCollection = createCollection<CasinoItems>(`CasinoInfo`)
-   const [values, loading, error] = useCollectionData(CasinoDataCollection) 
+  const [values, loading, error] = useCollectionData(CasinoDataCollection) 
+  
     
   return (
        
     <div>
-      hay {user}
           {loading && 'loading...'}
            <div> 
-             <ChildrenList path={`CasinoInfo/${user}/children`} />
+             <ChildrenList path={`CasinoInfo/${userID}/children`} />
            </div>
-           
-         <p><button onClick={() => signOut(auth)}> sign out of Firebase </button></p>
+             <p><button onClick={() => signOut(auth)}> sign out of Firebase </button></p>
         </div>
     ) 
  }
 
 export default BrandsData
  
- 
+ //https://firebase.google.com/docs/database/web/read-and-write#web-version-9

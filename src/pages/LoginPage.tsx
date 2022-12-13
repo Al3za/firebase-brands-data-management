@@ -19,7 +19,7 @@ const LoginPage = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then(async(userCredentals) => {
                 setAuthin(true)
-                const user = userCredentals.user.email
+                const user = userCredentals.user.uid
                 const docDir= `CasinoInfo/${user}`
                 const docRef = doc(db, docDir);
                 await setDoc(docRef,{user:user})
