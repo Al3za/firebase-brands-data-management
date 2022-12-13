@@ -7,9 +7,7 @@ import {
     getFirestore,
 } from 'firebase/firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import AddNew from './AddNew';
 import AddNewInfo from './AddNew2';
-import { useNavigate } from 'react-router-dom';
 
   const app = initializeApp(config.firebaseConfig)
   const firestore = getFirestore();

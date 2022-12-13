@@ -22,7 +22,7 @@ const AddNewInfo = (path) => {
     }
     return (
         <div> 
-            <h1> welcome</h1>
+            <h1> Add casino info </h1>
                 <form onSubmit={handleSubmit} >
                     <p>name <input ref={name} /></p>
                     <p>link  <input ref={link} /></p>
