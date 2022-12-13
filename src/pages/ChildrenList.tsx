@@ -31,7 +31,6 @@ import AddNewInfo from './AddNew2';
 
 export default function ChildrenList2(path: any) {
 
-  //const navigate= useNavigate()
   const CasinoPath = path.path
   
   const CasinoDataCollection = createCollection<CasinoItems>( `${CasinoPath}` )

@@ -33,30 +33,21 @@ import AddNew from './AddNew';
 
 const BrandsData = () => {
    
-   const [values, loading, error] = useCollectionData(CasinoDataCollection)
-    
    const auth = getAuth()  
+   const user = auth.currentUser?.email
+   
+   const CasinoDataCollection = createCollection<CasinoItems>(`CasinoInfo`)
+   const [values, loading, error] = useCollectionData(CasinoDataCollection) 
     
   return (
        
-         <div>
+    <div>
+      hay {user}
           {loading && 'loading...'}
-         <ul>
-           {values?.length !== 0 ? (
-             <div>
-               {values?.map((doc) => {
-             return <div key={Math.random()}> <h1>{doc.name}</h1> 
-               <ChildrenList path={`CasinoInfo/${doc.name}/children`}/> 
-             </div>
-           })}
-             </div>
-           ) : (
-            <div>
-              <p>welcome, please insert the name of the brand</p>
-              <AddNew path={'CasinoInfo'} />
-            </div>
-           ) }
-         </ul> 
+           <div> 
+             <ChildrenList path={`CasinoInfo/${user}/children`} />
+           </div>
+           
          <p><button onClick={() => signOut(auth)}> sign out of Firebase </button></p>
         </div>
     ) 

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom';
+import { doc, setDoc } from '@firebase/firestore';
+import { db } from '../App';
+
 
 
 const LoginPage = () => {
@@ -14,9 +17,12 @@ const LoginPage = () => {
 
    const SignInWithEmailPassword = () => {
         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredentals) => {
+            .then(async(userCredentals) => {
                 setAuthin(true)
-                const user = userCredentals.user.displayName
+                const user = userCredentals.user.email
+                const docDir= `CasinoInfo/${user}`
+                const docRef = doc(db, docDir);
+                await setDoc(docRef,{user:user})
                 navigate('/')
             }).catch((error) => {
                 const errorCode = error.code
