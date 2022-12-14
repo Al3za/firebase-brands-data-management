@@ -36,14 +36,13 @@ export default function ChildrenList2(path: any) {
   const CasinoDataCollection = createCollection<CasinoItems>( `${CasinoPath}` )
   const [values, loading, error] = useCollectionData(CasinoDataCollection)
 
-  
+  console.log(values)
    return  <div> {values?.map((doc) => {
      return <div  key={Math.random()}>
        <li> name {doc.name}</li>  <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li> <br />  
      </div>
    })}
-     <AddNewInfo path={`${CasinoPath}`}  /> 
-          
+       <AddNewInfo path={`${CasinoPath}`}  />    
    </div>
 }
 

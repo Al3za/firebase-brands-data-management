@@ -4,19 +4,19 @@ import { config } from '../config/Config'
 import {
     collection,
     CollectionReference,
-    
     DocumentData,
     getFirestore,
-    
 } from 'firebase/firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import ChildrenList from './ChildrenList';
-import AddNew from './AddNew';
+import AddNewInfo from './AddNew2';
+
 
    const app = initializeApp(config.firebaseConfig)
    const firestore = getFirestore();
-   const db=getFirestore(app)
-     const createCollection = <T = DocumentData>(collectionName: string) => {
+const db = getFirestore(app)
+   
+   export  const createCollection = <T = DocumentData>(collectionName: string) => {
        return collection(firestore, collectionName) as CollectionReference<T>;
     }; // den är vår collection reference
  
@@ -28,7 +28,7 @@ import AddNew from './AddNew';
       link: string
       bonus:string
    };
-  const CasinoDataCollection = createCollection<CasinoItems>('CasinoInfo')
+ export const CasinoDataCollection = createCollection<CasinoItems>('CasinoInfo')
     
 
 const BrandsData = () => {
@@ -36,7 +36,6 @@ const BrandsData = () => {
    const auth = getAuth()  
   const userID = auth.currentUser?.uid
    
-   const CasinoDataCollection = createCollection<CasinoItems>(`CasinoInfo`)
   const [values, loading, error] = useCollectionData(CasinoDataCollection) 
   
     
@@ -45,8 +44,9 @@ const BrandsData = () => {
     <div>
           {loading && 'loading...'}
            <div> 
-             <ChildrenList path={`CasinoInfo/${userID}/children`} />
-           </div>
+           <ChildrenList path={`CasinoInfo/${userID}/children`} />
+        </div>
+         
              <p><button onClick={() => signOut(auth)}> sign out of Firebase </button></p>
         </div>
     ) 
@@ -54,4 +54,4 @@ const BrandsData = () => {
 
 export default BrandsData
  
- //https://firebase.google.com/docs/database/web/read-and-write#web-version-9
+ 
