@@ -11,7 +11,8 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import AddNewInfo from './AddNew2';
 
   const app = initializeApp(config.firebaseConfig)
-  const firestore = getFirestore();
+const firestore = getFirestore();
+  console.log()
   const db=getFirestore(app)
 
 

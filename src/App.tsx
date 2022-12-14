@@ -8,13 +8,14 @@ import { initializeApp } from 'firebase/app';
 import BrandsData from './pages/SetCasinoDataPage';
 import AuthRoute from './components/AuthRoute'
 import { getFirestore } from 'firebase/firestore';
-import TestCasino from './pages/ChildrenList2';
-import AddNewInfo from './pages/AddNew2';
+
 
 //https://github.com/CSFrequency/react-firebase-hooks/tree/v4.0.2/firestore#usecollectiondata
 
+
 const app = initializeApp(config.firebaseConfig);
-const db = getFirestore(app)
+const db = getFirestore()
+
 
 export { db }
 

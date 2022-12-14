@@ -15,7 +15,8 @@ import AddNew from './AddNew';
 
    const app = initializeApp(config.firebaseConfig)
    const firestore = getFirestore();
-   const db=getFirestore(app)
+   const db = getFirestore(app)
+   
      const createCollection = <T = DocumentData>(collectionName: string) => {
        return collection(firestore, collectionName) as CollectionReference<T>;
     }; // den är vår collection reference
@@ -28,7 +29,6 @@ import AddNew from './AddNew';
       link: string
       bonus:string
    };
-  const CasinoDataCollection = createCollection<CasinoItems>('CasinoInfo')
     
 
 const BrandsData = () => {
