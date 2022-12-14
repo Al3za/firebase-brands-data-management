@@ -38,7 +38,6 @@ const BrandsData = () => {
    
   const [values, loading, error] = useCollectionData(CasinoDataCollection) 
   
-    
   return (
        
     <div>
