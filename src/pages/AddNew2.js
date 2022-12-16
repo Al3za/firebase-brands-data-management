@@ -1,4 +1,4 @@
-import {addDoc, doc,setDoc, collection, getFirestore, updateDoc} from '@firebase/firestore'
+import {addDoc, doc,setDoc, collection, getFirestore, updateDoc , getDocs} from '@firebase/firestore'
 import React, { useRef } from "react";
 import { db } from '../App';
 //import { getDatabase, ref, set } from "firebase/database";
@@ -6,32 +6,32 @@ import { db } from '../App';
 
  export const UpdateInfo =  (path)=> {
     // await updateDoc(updateRef, { name: 'gallo' })
-    const name = useRef()
-    const info = useRef()
-    const link = useRef()
-    const bonus = useRef()
-     const docDir2 = path.path
-    // const docRef = doc(db, docDir2);
-     const coll2 = collection(db, docDir2)
-
-     //await setDoc(docRef,{user:user})
-    
+    // const name = useRef()
+    // const info = useRef()
+    // const link = useRef()
+    // const bonus = useRef()
+    const docDir2 = path.path
+   //  console.log(docDir2, 'idis')
+    //  const update = {
+    //      bonus: 200,
+    //      link: 'http',
+    //      info: 'http...sandro',
+    //      name:'Danton' 
+    //  }
+     
      async function ChangeData(e) {
          e.preventDefault();
-         const docRef = doc(db, docDir2);
-         await setDoc(docRef,{ name: name.current.value,
-            link: link.current.value,
-            bonus: bonus.current.value,
-            info: info.current.value}) 
+         console.log(docDir2)
         e.target.reset()
      }
 
      return (
          <form onSubmit={ChangeData} >
-                    <p>name <input ref={name} /></p>
+             <h2> update casino info </h2>
+                    {/* <p>name <input ref={name} /></p>
                     <p>link  <input ref={link} /></p>
                     <p>bonus <input ref={bonus} /></p>
-                    <p>info  <input ref={info} /></p> 
+                    <p>info  <input ref={info} /></p>  */}
                 <button type="submit" >Uppdate</button>
             </form> 
      )
@@ -44,7 +44,6 @@ const AddNewInfo = (path) => {
     const bonus = useRef()
     const docDir = path.path
     const coll = collection(db, docDir)
-   // const updateRef= doc(db,docDir,'f8eJel8TGtnJSvdyzI6M')
     
     async function handleSubmit(e) {
         e.preventDefault();

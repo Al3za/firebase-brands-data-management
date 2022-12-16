@@ -5,16 +5,19 @@ import {
     collection,
     CollectionReference,
     DocumentData,
+    getDocs,
     getFirestore,
 } from 'firebase/firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import ChildrenList from './ChildrenList';
-import AddNewInfo from './AddNew2';
+import AddNewInfo, { UpdateInfo } from './AddNew2';
+import { db } from '../App';
+
 
 
    const app = initializeApp(config.firebaseConfig)
    const firestore = getFirestore();
-const db = getFirestore(app)
+  // const db = getFirestore(app)
    
    export  const createCollection = <T = DocumentData>(collectionName: string) => {
        return collection(firestore, collectionName) as CollectionReference<T>;
@@ -28,24 +31,24 @@ const db = getFirestore(app)
       link: string
       bonus:string
    };
- export const CasinoDataCollection = createCollection<CasinoItems>('CasinoInfo')
     
 
-const BrandsData = () => {
+const BrandsData =  () => {
    
    const auth = getAuth()  
-  const userID = auth.currentUser?.uid
-   
-  const [values, loading, error] = useCollectionData(CasinoDataCollection) 
+   const userID = auth.currentUser?.uid
+
+   const CasinoDataCollection = createCollection<CasinoItems>(`CasinoInfo`)
+
+   const [values, loading] = useCollectionData(CasinoDataCollection) 
   
   return (
        
     <div>
           {loading && 'loading...'}
            <div> 
-           <ChildrenList path={`CasinoInfo/${userID}/children`} />
+            <ChildrenList path={`CasinoInfo/${userID}/children`} /> 
         </div>
-         
              <p><button onClick={() => signOut(auth)}> sign out of Firebase </button></p>
         </div>
     ) 
