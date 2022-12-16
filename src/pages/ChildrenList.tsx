@@ -56,14 +56,14 @@ export default function ChildrenList2(path: any) {
       setGetInfo(latest)
       setGetId(docId)
     })
-   // return unsubscribe
+    return unsubscribe
   }, [])
   
 
     return  <div> {GetInfo?.map((doc) => {
       return <div key={Math.random()}> 
         <h2>Casinos info</h2>
-        <li> id {doc.id} name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li> <br /> 
+        <li> name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li> <br /> 
         {GetId?.map((Ids) => {
               return  <UpdateInfo path={`${CasinoPath}/${Ids}`} /> 
         })}

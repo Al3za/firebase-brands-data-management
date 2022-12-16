@@ -21,6 +21,8 @@ import { db } from '../App';
      
      async function ChangeData(e) {
          e.preventDefault();
+         const docRef = doc(db, docDir2);
+       await updateDoc(docRef, {name: 'update completed'} )
          console.log(docDir2)
         e.target.reset()
      }

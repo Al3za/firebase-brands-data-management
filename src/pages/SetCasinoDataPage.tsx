@@ -56,4 +56,4 @@ const BrandsData =  () => {
 
 export default BrandsData
  
- 
+ //https://softauthor.com/firebase-firestore-update-document-data-updatedoc/
