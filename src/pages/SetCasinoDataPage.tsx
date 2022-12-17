@@ -23,13 +23,12 @@ import { db } from '../App';
        return collection(firestore, collectionName) as CollectionReference<T>;
     }; // den är vår collection reference
  
-   interface CasinoItems {
-      id?: string,
+ interface CasinoItems {
       name: string,
       timeStamp: Date,
       info: string,
       link: string
-      bonus:string
+      bonus: string,
    };
     
 
@@ -40,7 +39,7 @@ const BrandsData =  () => {
 
    const CasinoDataCollection = createCollection<CasinoItems>(`CasinoInfo`)
 
-   const [values, loading] = useCollectionData(CasinoDataCollection) 
+   const [values, loading ] = useCollectionData(CasinoDataCollection) 
   
   return (
        
