@@ -1,52 +1,20 @@
 import { getAuth, signOut } from 'firebase/auth';
-import { initializeApp } from 'firebase/app'
-import { config } from '../config/Config'
-import {
-    collection,
-    CollectionReference,
-    
-    DocumentData,
-    getFirestore,
-    
-} from 'firebase/firestore'
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-import ChildrenList from './ChildrenList';
-import AddNew from './AddNew';
+import ChildrenList2 from './ChildrenList';
 
-   const app = initializeApp(config.firebaseConfig)
-   const firestore = getFirestore();
-   const db = getFirestore(app)
-   
-     const createCollection = <T = DocumentData>(collectionName: string) => {
-       return collection(firestore, collectionName) as CollectionReference<T>;
-    }; // den är vår collection reference
- 
-   interface CasinoItems {
-      id?: string,
-      name: string,
-      timeStamp: Date,
-      info: string,
-      link: string
-      bonus:string
-   };
-    
 
-const BrandsData = () => {
+const BrandsData =  () => {
+
    
    const auth = getAuth()  
-  const userID = auth.currentUser?.uid
-   
-   const CasinoDataCollection = createCollection<CasinoItems>(`CasinoInfo`)
-  const [values, loading, error] = useCollectionData(CasinoDataCollection) 
+   const userID = auth.currentUser?.uid
+
   
-    
   return (
        
     <div>
-          {loading && 'loading...'}
            <div> 
-             <ChildrenList path={`CasinoInfo/${userID}/children`} />
-           </div>
+            <ChildrenList2 path={`CasinoInfo/${userID}/children`} /> 
+        </div>
              <p><button onClick={() => signOut(auth)}> sign out of Firebase </button></p>
         </div>
     ) 
@@ -54,4 +22,4 @@ const BrandsData = () => {
 
 export default BrandsData
  
- //https://firebase.google.com/docs/database/web/read-and-write#web-version-9
+ //https://softauthor.com/firebase-firestore-update-document-data-updatedoc/

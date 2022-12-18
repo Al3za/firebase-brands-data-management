@@ -13,7 +13,7 @@ import { getFirestore } from 'firebase/firestore';
 //https://github.com/CSFrequency/react-firebase-hooks/tree/v4.0.2/firestore#usecollectiondata
 
 
-const app = initializeApp(config.firebaseConfig);
+initializeApp(config.firebaseConfig);
 const db = getFirestore()
 
 
