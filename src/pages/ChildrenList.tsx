@@ -11,7 +11,6 @@ import {
 } from 'firebase/firestore'
 import AddNewInfo, { UpdateInfo }  from './AddNew2';
 import { useEffect, useState } from 'react';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 
   const app = initializeApp(config.firebaseConfig)
   const firestore = getFirestore();
@@ -34,20 +33,20 @@ export default function ChildrenList2(path: any) {
   const CasinoPath = path.path
   
   const CasinoDataCollection = createCollection<CasinoItems>(`${CasinoPath}`)
-  //const [values, loading] = useCollectionData(CasinoDataCollection)
   const [GetInfo, setGetInfo] = useState<CasinoItems[]>([])
   const [GetId, setGetId] = useState<string[]>([])
 
    useEffect(() => {
   
-     const q = query(CasinoDataCollection, orderBy('timeStamp','desc'))// asc put the oldest down
-     const docId: any = []
-     const collData : CasinoItems[]=[]
+     const q = query(CasinoDataCollection,orderBy('timeStamp','desc'))
+     
      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const docId: any = []
+      const collData : CasinoItems[]=[]
        querySnapshot.forEach((doc) => {
-         console.log(doc.data(), doc.id, 'data u got')
          if (!docId.includes(doc.id)) {
            docId.push(doc.id)
+           console.log(docId)
           }
          collData.push(doc.data())
        }) 
@@ -57,8 +56,7 @@ export default function ChildrenList2(path: any) {
      return unsubscribe
    }, [])
   
-  console.log(GetId,'id')
-
+   console.log(GetId,'id')
     return ( <div> {GetInfo?.map((doc,index) => {
       return <div key={Math.random()}> 
         <h2>Casinos info</h2>

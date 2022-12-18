@@ -9,29 +9,26 @@ import { db } from '../App';
     const info = useRef()
     const link = useRef()
     const bonus = useRef()
-    const docDir2 = path.path
-   // console.log(docDir2)
+     const docDir2 = path.path
+     
      async function ChangeData(e) {
          e.preventDefault();
           const docRef = doc(db, docDir2);
           await updateDoc(docRef, {
               name: name.current.value,
-        //       link: link.current.value,
-        //      bonus: bonus.current.value,
-        //      info: info.current.value,
-        //      timeStamp: Date.now()
+               link: link.current.value,
+              bonus: bonus.current.value,
+              info: info.current.value,
            })
-         console.log(docDir2)
-       // e.target.reset()
      }
 
      return (
          <form onSubmit={ChangeData} >
              <h2> update casino info </h2>
                       <p>name <input ref={name} /></p>
-                     {/* <p>link  <input ref={link} /></p>
-                    <p>bonus <input ref={bonus} /></p> 
-                    <p>info  <input ref={info} /></p>     */}
+                      <p>link  <input ref={link} /></p>
+                      <p>bonus <input ref={bonus} /></p> 
+                      <p>info  <input ref={info} /></p>     
                 <button type="submit" >Uppdate</button>
             </form> 
      )
@@ -48,10 +45,10 @@ const AddNewInfo = (path) => {
     async function handleSubmit(e) {
         e.preventDefault();
         await addDoc(coll,{ name: name.current.value,
-            // link: link.current.value,
-            // bonus: bonus.current.value,
-            //   info: info.current.value,
-               timeStamp: serverTimestamp()
+             link: link.current.value,
+             bonus: bonus.current.value,
+             info: info.current.value,
+             timeStamp: serverTimestamp()
           }); 
         e.target.reset()
     }
@@ -61,9 +58,9 @@ const AddNewInfo = (path) => {
              <h1> Add casino info </h1>
                 <form onSubmit={handleSubmit} >
                     <p>name <input ref={name} /></p>
-                    {/* <p>link  <input ref={link} /></p>
+                    <p>link  <input ref={link} /></p>
                     <p>bonus <input ref={bonus} /></p>
-                    <p>info  <input ref={info} /></p> */}
+                    <p>info  <input ref={info} /></p>
                 <button type="submit" >Add</button>
             </form> 
         </div>
