@@ -13,13 +13,11 @@ import AddNewInfo, { UpdateInfo }  from './AddNew2';
 import { useEffect, useState } from 'react';
 
   const app = initializeApp(config.firebaseConfig)
-
   const firestore = getFirestore();
-
 
     const createCollection = <T = DocumentData>(collectionName: string) => {
       return collection(firestore, collectionName) as CollectionReference<T>;
-   }; // den är vår collection reference
+   };
  
 interface CasinoItems {
      name: string,
@@ -35,6 +33,7 @@ export default function ChildrenList2(path: any) {
   const CasinoPath = path.path
   
   const CasinoDataCollection = createCollection<CasinoItems>(`${CasinoPath}`)
+
   const [GetInfo, setGetInfo] = useState<CasinoItems[]>([])
   const [GetId, setGetId] = useState<string[]>([])
 
@@ -58,7 +57,6 @@ export default function ChildrenList2(path: any) {
      return unsubscribe
    }, [])
   
-   console.log(GetId,'id')
     return ( <div> {GetInfo?.map((doc,index) => {
       return <div key={Math.random()}> 
         <h2>Casinos info</h2>
