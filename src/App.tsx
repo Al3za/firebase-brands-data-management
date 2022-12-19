@@ -10,28 +10,19 @@ import AuthRoute from './components/AuthRoute'
 import { getFirestore } from 'firebase/firestore';
 
 
-//https://github.com/CSFrequency/react-firebase-hooks/tree/v4.0.2/firestore#usecollectiondata
-
-
 initializeApp(config.firebaseConfig);
 const db = getFirestore()
 
-
 export { db }
-
 
 function App() {
 
   return (
-
-  
-    
        <Routes>
          <Route path='/' element={<AuthRoute><BrandsData/></AuthRoute>} />
          <Route path='/login' element={<LoginPage />} />
         <Route path='/signUp' element={< SignUpPage />} />
        </Routes>
-    
   );
 }
 
@@ -41,3 +32,5 @@ export default App;
    // video of subcollection
 // https://github.com/CSFrequency/react-firebase-hooks/tree/v4.0.2/firestore#usecollectiondata
    // documentation of collections
+
+ 

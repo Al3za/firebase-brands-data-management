@@ -1,5 +1,4 @@
 import {addDoc, doc, collection, updateDoc, serverTimestamp, deleteDoc } from '@firebase/firestore'
-
 import React, { useRef } from "react";
 import { db } from '../App';
 
@@ -45,7 +44,6 @@ import { db } from '../App';
 
 
 const AddNewInfo = (path) => {
-   // const db = getFirestore();
     const name = useRef()
     const info = useRef()
     const link = useRef()
