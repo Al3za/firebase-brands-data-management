@@ -10,7 +10,7 @@ const BrandsData =  () => {
   return (
        
     <div>
-           <div> 
+           <div>  
             <ChildrenList2 path={`CasinoInfo/${userID}/children`} /> 
         </div>
              <p><button onClick={() => signOut(auth)}> sign out of Firebase </button></p>

@@ -61,7 +61,8 @@ export default function ChildrenList2(path: any) {
       return <div key={Math.random()}> 
         <h2>Casinos info</h2>
          <li> name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li> <br /> 
-          <UpdateInfo path={`${CasinoPath}/${GetId[index]}`} />  
+        <UpdateInfo path={`${CasinoPath}/${GetId[index]}`} />  
+        <button> delete </button>
       </div>
     })} <AddNewInfo path={`${CasinoPath}`} />
   </div>)
