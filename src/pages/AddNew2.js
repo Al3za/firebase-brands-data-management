@@ -1,5 +1,4 @@
-
-import {addDoc, doc, collection, updateDoc, serverTimestamp } from '@firebase/firestore'
+import {addDoc, doc, collection, updateDoc, serverTimestamp, deleteDoc } from '@firebase/firestore'
 import React, { useRef } from "react";
 import { db } from '../App';
 
@@ -23,17 +22,26 @@ import { db } from '../App';
            })
      }
 
+     const Deletedata = async () => {
+         const docRef = doc(db, docDir2);
+         await deleteDoc(docRef)
+     }
+
      return (
-         <form onSubmit={ChangeData} >
-             <h2> update casino info </h2>
-                      <p>name <input ref={name} /></p>
-                      <p>link  <input ref={link} /></p>
-                      <p>bonus <input ref={bonus} /></p> 
-                      <p>info  <input ref={info} /></p>     
-                <button type="submit" >Uppdate</button>
-            </form> 
+         <div>
+             <form onSubmit={ChangeData} >
+                 <h2> update casino info </h2>
+                          <p>name <input ref={name} /></p>
+                          <p>link  <input ref={link} /></p>
+                          <p>bonus <input ref={bonus} /></p>
+                          <p>info  <input ref={info} /></p>
+                    <button type="submit" >Uppdate</button>
+             </form>
+             <button onClick={(e)=>Deletedata()} > Delete </button>
+         </div>
      )
 }
+
 
 const AddNewInfo = (path) => {
     const name = useRef()
