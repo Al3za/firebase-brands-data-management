@@ -13,7 +13,9 @@ import AddNewInfo, { UpdateInfo }  from './AddNew2';
 import { useEffect, useState } from 'react';
 
   const app = initializeApp(config.firebaseConfig)
+
   const firestore = getFirestore();
+
 
     const createCollection = <T = DocumentData>(collectionName: string) => {
       return collection(firestore, collectionName) as CollectionReference<T>;

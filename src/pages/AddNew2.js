@@ -1,5 +1,6 @@
 import {addDoc, doc, collection, updateDoc, serverTimestamp, deleteDoc } from '@firebase/firestore'
 import { async } from '@firebase/util';
+
 import React, { useRef } from "react";
 import { db } from '../App';
 
@@ -45,13 +46,16 @@ import { db } from '../App';
 
 
 const AddNewInfo = (path) => {
+   // const db = getFirestore();
     const name = useRef()
     const info = useRef()
     const link = useRef()
     const bonus = useRef()
     const docDir = path.path
+
     const coll = collection(db, docDir)
     
+
     async function handleSubmit(e) {
         e.preventDefault();
         await addDoc(coll,{ name: name.current.value,
@@ -62,7 +66,7 @@ const AddNewInfo = (path) => {
           }); 
         e.target.reset()
     }
-    
+
     return (
         <div> 
              <h1> Add casino info </h1>
@@ -73,6 +77,7 @@ const AddNewInfo = (path) => {
                     <p>info  <input ref={info} /></p>
                 <button type="submit" >Add</button>
             </form> 
+
         </div>
     )
 }

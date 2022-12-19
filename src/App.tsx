@@ -12,8 +12,10 @@ import { getFirestore } from 'firebase/firestore';
 
 //https://github.com/CSFrequency/react-firebase-hooks/tree/v4.0.2/firestore#usecollectiondata
 
+
 initializeApp(config.firebaseConfig);
 const db = getFirestore()
+
 
 export { db }
 
