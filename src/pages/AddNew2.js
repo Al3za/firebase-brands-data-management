@@ -1,5 +1,4 @@
 import {addDoc, doc, collection, updateDoc, serverTimestamp, deleteDoc } from '@firebase/firestore'
-import { async } from '@firebase/util';
 
 import React, { useRef } from "react";
 import { db } from '../App';
