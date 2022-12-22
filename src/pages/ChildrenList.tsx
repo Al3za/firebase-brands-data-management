@@ -47,7 +47,6 @@ export default function ChildrenList2(path: any) {
        querySnapshot.forEach((doc) => {
          if (!docId.includes(doc.id)) {
            docId.push(doc.id)
-           console.log(docId)
           }
          collData.push(doc.data())
        }) 
@@ -57,6 +56,7 @@ export default function ChildrenList2(path: any) {
      return unsubscribe
    }, [])
   
+  console.log(GetId,'all ids',GetInfo,'all infos')
     return ( <div> {GetInfo?.map((doc,index) => {
       return <div key={Math.random()}> 
         <h2>Casinos info</h2>

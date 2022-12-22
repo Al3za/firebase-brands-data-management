@@ -9,7 +9,7 @@ import { db } from '../App';
     const info = useRef()
     const link = useRef()
     const bonus = useRef()
-     const docDir2 = path.path
+    const docDir2 = path.path
      
      async function ChangeData(e) {
          e.preventDefault();
