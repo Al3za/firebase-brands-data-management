@@ -19,7 +19,7 @@ const SignUpPage = () => {
             .then(res => {
                 console.log(res.user.uid);
                 // remove this log when u deploy this app
-                console.log(res.user.displayName)
+               // console.log(res.user.displayName)
                 navigate('/login')
             }).catch((err) => {
                 console.log(err)

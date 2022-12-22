@@ -8,6 +8,9 @@ import { initializeApp } from 'firebase/app';
 import BrandsData from './pages/SetCasinoDataPage';
 import AuthRoute from './components/AuthRoute'
 import { getFirestore } from 'firebase/firestore';
+import TestPage from './pages/TestPage';
+import DevLogin from './pages/DevLogin';
+import DevRoute from './components/DevRoute';
 
 
 //https://github.com/CSFrequency/react-firebase-hooks/tree/v4.0.2/firestore#usecollectiondata
@@ -30,6 +33,8 @@ function App() {
          <Route path='/' element={<AuthRoute><BrandsData/></AuthRoute>} />
          <Route path='/login' element={<LoginPage />} />
         <Route path='/signUp' element={< SignUpPage />} />
+        <Route path='/devLogin' element={<DevLogin/>} />
+      <Route path='/test' element={ <DevRoute><TestPage/></DevRoute> } />
        </Routes>
     
   );
