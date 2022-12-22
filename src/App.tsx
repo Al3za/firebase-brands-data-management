@@ -13,22 +13,14 @@ import DevLogin from './pages/DevLogin';
 import DevRoute from './components/DevRoute';
 
 
-//https://github.com/CSFrequency/react-firebase-hooks/tree/v4.0.2/firestore#usecollectiondata
-
-
 initializeApp(config.firebaseConfig);
 const db = getFirestore()
 
-
 export { db }
-
 
 function App() {
 
   return (
-
-  
-    
        <Routes>
          <Route path='/' element={<AuthRoute><BrandsData/></AuthRoute>} />
          <Route path='/login' element={<LoginPage />} />
@@ -36,7 +28,6 @@ function App() {
         <Route path='/devLogin' element={<DevLogin/>} />
       <Route path='/test' element={ <DevRoute><TestPage/></DevRoute> } />
        </Routes>
-    
   );
 }
 
@@ -46,3 +37,5 @@ export default App;
    // video of subcollection
 // https://github.com/CSFrequency/react-firebase-hooks/tree/v4.0.2/firestore#usecollectiondata
    // documentation of collections
+
+ 
