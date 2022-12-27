@@ -42,7 +42,6 @@ import { db } from '../App';
      )
 }
 
-
 const AddNewInfo = (path) => {
     const name = useRef()
     const info = useRef()
@@ -51,15 +50,13 @@ const AddNewInfo = (path) => {
     const docDir = path.path
 
     const coll = collection(db, docDir)
-    
-
     async function handleSubmit(e) {
         e.preventDefault();
         await addDoc(coll,{ name: name.current.value,
              link: link.current.value,
              bonus: bonus.current.value,
              info: info.current.value,
-             timeStamp: serverTimestamp()
+            timeStamp: serverTimestamp(),
           }); 
         e.target.reset()
     }
