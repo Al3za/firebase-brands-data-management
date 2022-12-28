@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { config } from '../config/Config'
 import {
+  addDoc,
     collection,
     CollectionReference,
     DocumentData,
@@ -11,8 +12,10 @@ import {
 } from 'firebase/firestore'
 //import AddNewInfo, { UpdateInfo }  from './AddNew2';
 import { useEffect, useState } from 'react';
-import { getAuth } from 'firebase/auth';
+//import { getAuth } from 'firebase/auth';
 import SingleCasinoList from './SingleCasinoList';
+import { getAuth } from 'firebase/auth';
+import { db } from '../App';
 
   const app = initializeApp(config.firebaseConfig)
 
@@ -25,18 +28,22 @@ import SingleCasinoList from './SingleCasinoList';
  
 interface CasinoItems {
      name: string,
-     timeStamp: Date,
+     timeStamp?: Date,
      info: string,
      link: string
     bonus: number,
+    posNr?:number
   };
 
 
-export default function ChildrenList2() {
+export default function ChildrenList3() {
 
   //const CasinoPath = `CasinoInfo`
-  // const auth = getAuth()  
-  //  const userID = auth.currentUser?.uid
+   const auth = getAuth()  
+  const userID = auth.currentUser?.uid
+  
+  const docDir3 = `DevData/${userID}/children`
+  const coll = collection(db, docDir3)
   
     const CasinoDataCollection = createCollection<CasinoItems>('CasinoInfo')
   
@@ -75,22 +82,40 @@ export default function ChildrenList2() {
       return unsubscribe
     })
   }
-  console.log(GetInfo,'ciao')
   
-    return ( <div> {GetInfo?.map((doc,index) => {
-      return <div key={Math.random()}>
-        <h2>all user data</h2>
-        <li> name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} {GetId[index]} </li>
-        {/* <SingleCasinoList path={`CasinoInfo/${collData[index]}/children/${GetId[index]}`}/> */}
-        <SingleCasinoList path={GetInfo[1]} />
-        <button>chose position number</button>
+  useEffect(() => {
+    GetInfo.map((doc) => {
+   return addDoc(coll,
+        {
+          name: doc.name,
+          link: doc.link,
+          info: doc.info,
+          bonus: doc.bonus,
+          timeStamp: doc.timeStamp
+        })
+    })
+     
+},[auth])
+  
+  return (
+    <div>
+      <div>
+        {GetInfo?.map((doc, index) => {
+        
+        return <div key={Math.random()}>
+          <h2>all user data</h2>
+          <li> name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link}</li> <li> DOC ID {GetId[index]} </li>
+        </div>
+      })}
       </div>
-    })}
-  </div>)
+     <SingleCasinoList path={GetInfo} /> 
+    </div>
+  )
 }
            
   
 
-//  <UpdateInfo path={`${CasinoPath}/${GetId[index]}`} /> 
+//  <UpdateInfo path={`${CasinoPath}/${GetId[index]}`} />
 // <AddNewInfo path={`${CasinoPath}`} />
 //orderBy('timeStamp','desc')
+//{/* <SingleCasinoList path={`CasinoInfo/${collData[index]}/children/${GetId[index]}`}/> */}
