@@ -65,7 +65,6 @@ const userID = auth.currentUser?.uid
      return unsubscribe
    }, [])
   
-  
     return (<div> 
         {GetInfo?.map((doc, index) => {
       return <div key={Math.random()}> 

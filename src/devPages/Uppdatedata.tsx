@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const UppdateData = ( path:any ) => {
    // console.log(src.path, src.nr)
-   const Zes=  class NameForm extends React.Component<{}, {value: string}> {
+   const Inputs=  class NameForm extends React.Component<{}, {value: string}> {
          constructor(props:any,path:any) {
              super(props);
              this.state = { value: '' };
@@ -32,7 +32,7 @@ const UppdateData = ( path:any ) => {
              );
          }
      }
-    return <Zes />
+    return <Inputs/>
 }
   
 
