@@ -4,16 +4,17 @@ import {
   addDoc,
     collection,
     CollectionReference,
+    doc,
     DocumentData,
     getFirestore,
     onSnapshot,
     orderBy,
     query,
+    setDoc,
 } from 'firebase/firestore'
 //import AddNewInfo, { UpdateInfo }  from './AddNew2';
 import { useEffect, useState } from 'react';
 //import { getAuth } from 'firebase/auth';
-import SingleCasinoList from './SingleCasinoList';
 import { getAuth } from 'firebase/auth';
 import { db } from '../App';
 
@@ -42,16 +43,15 @@ export default function ChildrenList3() {
    const auth = getAuth()  
   const userID = auth.currentUser?.uid
   
-  const docDir3 = `DevData/${userID}/children`
-  const coll = collection(db, docDir3)
+ 
   
     const CasinoDataCollection = createCollection<CasinoItems>('CasinoInfo')
   
   const [GetInfo, setGetInfo] = useState<any[]>([])
   const [GetId, setGetId] = useState<string[]>([])
-  const collData:any[]=[]
+  const collData: any[] = []
+  
   useEffect(() => {
-     
      const q = query(CasinoDataCollection)
      const unsubscribe = onSnapshot(q, (querySnapshot) => {
        querySnapshot.forEach((doc) => {
@@ -62,40 +62,45 @@ export default function ChildrenList3() {
      return unsubscribe
   }, [])
   
-  const GetPath=(item: any[]) => {
-    const CasinosPaths = item
-    const docId: any = []
-    const collData: CasinoItems[] = []
-    CasinosPaths.forEach((itemPath) => {
-      const CasinoDataCollection = createCollection<CasinoItems>(itemPath)
-      const q=query(CasinoDataCollection,orderBy('timeStamp','desc'))
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          if (!docId.includes(doc.id)) {
-            docId.push(doc.id)
-           }
-          collData.push(doc.data())
-        })
-        setGetId(docId)
-        setGetInfo(collData)
-      })
-      return unsubscribe
-    })
-  }
+   const GetPath=(item: any[]) => {
+     const CasinosPaths = item
+     const docId: any = []
+     const collData: CasinoItems[] = []
+     CasinosPaths.forEach((itemPath) => {
+       const CasinoDataCollection = createCollection<CasinoItems>(itemPath)
+       const q=query(CasinoDataCollection,orderBy('timeStamp','desc'))
+       const unsubscribe = onSnapshot(q, (querySnapshot) => {
+         querySnapshot.forEach((doc) => {
+           if (!docId.includes(doc.id)) {
+             docId.push(doc.id)
+            }
+           collData.push(doc.data())
+         })
+         setGetId(docId)
+         setGetInfo(collData)
+       })
+       return unsubscribe
+     })
+   }
   
   useEffect(() => {
-    GetInfo.map((doc) => {
-   return addDoc(coll,
-        {
-          name: doc.name,
-          link: doc.link,
-          info: doc.info,
-          bonus: doc.bonus,
-          timeStamp: doc.timeStamp
-        })
-    })
+   
+    GetInfo.map((docs, index) => {
+      //const docDir3 = `DevData/${userID}/${GetId[index]}`
+      const docDir3 = `DevData/${userID}/children/${GetId[index]}`
+      const docRef = doc(db, docDir3);
+     // const coll:any = collection(db, docDir3)
+    return setDoc(docRef,
+         {
+           name: docs.name,
+           link: docs.link,
+           info: docs.info,
+           bonus: docs.bonus,
+           timeStamp: docs.timeStamp,
+         })
+     })
      
-},[auth])
+ },[])
   
   return (
     <div>
@@ -108,7 +113,7 @@ export default function ChildrenList3() {
         </div>
       })}
       </div>
-     <SingleCasinoList path={GetInfo} /> 
+      
     </div>
   )
 }

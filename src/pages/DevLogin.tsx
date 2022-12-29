@@ -40,9 +40,6 @@ const LoginPage = () => {
 
             <p><button onClick={() => SignInWithEmailPassword()} disabled={authing} > Log In with Email </button></p>
             
-
-
-
         </div>
     )
 }
