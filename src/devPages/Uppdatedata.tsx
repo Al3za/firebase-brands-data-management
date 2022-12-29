@@ -1,7 +1,19 @@
-import React, { useState } from 'react';
+import {  addDoc, collection, doc,  serverTimestamp, setDoc } from 'firebase/firestore';
+import React from 'react';
+import { db } from '../App';
+//const firestore = getFirestore();
 
-const UppdateData = ( path:any ) => {
-   // console.log(src.path, src.nr)
+
+   
+
+const UppdateData = (src: { path: any, dicID: any }) => {
+    
+    
+//    const DocIDs= src.dicID
+//    const docDir = `DevPosNum/${DocIDs}`;
+//     const docRef:any = doc(db, docDir);
+//     const PathData = src.path;
+   
    const Inputs=  class NameForm extends React.Component<{}, {value: string}> {
          constructor(props:any,path:any) {
              super(props);
@@ -15,9 +27,23 @@ const UppdateData = ( path:any ) => {
              this.setState({ value: event.target.value });
          }
   
-         handleSubmit(event:any) {
-             alert(`${path.path.name} has this pos nr: ` + this.state.value);
-             event.preventDefault();
+       async handleSubmit(event: any) {
+        event.preventDefault();
+          const DocIDs= src.dicID
+           const docDir = `DevPosNum/${DocIDs}`;
+           console.log(docDir,'direction',DocIDs,'ID')
+            const docRef:any = doc(db, docDir);
+           const PathData = src.path;
+           
+           await setDoc(docRef,{
+                name: PathData.name,
+                link: PathData.link,
+                bonus: PathData.bonus,
+                info: PathData.info,
+                timeStamp: serverTimestamp(),
+                PosNr: this.state.value
+           })
+           //event.preventDefault();
          }
   
          render() {

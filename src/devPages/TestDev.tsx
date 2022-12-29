@@ -26,12 +26,12 @@ interface CasinoItems {
      timeStamp: Date,
      info: string,
      link: string
-  bonus: number,
-  posNr:number
+     bonus: number,
+     posNr?:number
   };
 
 
-export default function TestDev(path: any) {
+export default function TestDev() {
 
 const auth = getAuth()  
 const userID = auth.currentUser?.uid
@@ -41,7 +41,6 @@ const userID = auth.currentUser?.uid
 
   const [GetInfo, setGetInfo] = useState<CasinoItems[]>([])
   const [GetId, setGetId] = useState<string[]>([])
-  const [text, setText] = useState<string>("");
 
   //let posNum=1
    useEffect(() => {
@@ -71,7 +70,7 @@ const userID = auth.currentUser?.uid
         <h2>Casinos info</h2>
         <li> name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li> <li>Docid {GetId[index]} </li>
         
-        <Uppdatedata path={GetInfo[index]}/>  
+        <Uppdatedata path={GetInfo[index]} dicID={GetId[index]} />  
       </div>
         })} 
   </div>
