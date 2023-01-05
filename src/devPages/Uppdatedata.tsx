@@ -1,19 +1,10 @@
-import {  addDoc, collection, doc,  serverTimestamp, setDoc } from 'firebase/firestore';
+import {  doc,  serverTimestamp, setDoc } from 'firebase/firestore';
 import React from 'react';
 import { db } from '../App';
-//const firestore = getFirestore();
 
-
-   
 
 const UppdateData = (src: { path: any, dicID: any }) => {
     
-    
-//    const DocIDs= src.dicID
-//    const docDir = `DevPosNum/${DocIDs}`;
-//     const docRef:any = doc(db, docDir);
-//     const PathData = src.path;
-   
    const Inputs=  class NameForm extends React.Component<{}, {value: string}> {
          constructor(props:any,path:any) {
              super(props);
@@ -31,7 +22,7 @@ const UppdateData = (src: { path: any, dicID: any }) => {
         event.preventDefault();
           const DocIDs= src.dicID
            const docDir = `DevPosNum/${DocIDs}`;
-           console.log(docDir,'direction',DocIDs,'ID')
+          // console.log(docDir,'direction',DocIDs,'ID')
             const docRef:any = doc(db, docDir);
            const PathData = src.path;
            

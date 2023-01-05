@@ -1,7 +1,6 @@
 import { initializeApp } from 'firebase/app'
 import { config } from '../config/Config'
 import {
-  addDoc,
     collection,
     CollectionReference,
     doc,
@@ -17,6 +16,7 @@ import { useEffect, useState } from 'react';
 //import { getAuth } from 'firebase/auth';
 import { getAuth } from 'firebase/auth';
 import { db } from '../App';
+import { createModuleResolutionCache } from 'typescript';
 
   const app = initializeApp(config.firebaseConfig)
 
@@ -45,7 +45,7 @@ export default function ChildrenList3() {
   
  
   
-    const CasinoDataCollection = createCollection<CasinoItems>('CasinoInfo')
+  const CasinoDataCollection = createCollection<CasinoItems>('CasinoInfo')
   
   const [GetInfo, setGetInfo] = useState<any[]>([])
   const [GetId, setGetId] = useState<string[]>([])
@@ -55,7 +55,9 @@ export default function ChildrenList3() {
      const q = query(CasinoDataCollection)
      const unsubscribe = onSnapshot(q, (querySnapshot) => {
        querySnapshot.forEach((doc) => {
-         collData.push( `CasinoInfo/${doc.id}/children`)
+         if (!collData.includes(`CasinoInfo/${doc.id}/children`)) {
+           collData.push(`CasinoInfo/${doc.id}/children`)
+         }
        }) 
        GetPath(collData)
      })
@@ -64,6 +66,7 @@ export default function ChildrenList3() {
   
    const GetPath=(item: any[]) => {
      const CasinosPaths = item
+    // console.log(CasinosPaths)
      const docId: any = []
      const collData: CasinoItems[] = []
      CasinosPaths.forEach((itemPath) => {
@@ -73,8 +76,11 @@ export default function ChildrenList3() {
          querySnapshot.forEach((doc) => {
            if (!docId.includes(doc.id)) {
              docId.push(doc.id)
-            }
-           collData.push(doc.data())
+           }
+           if (!collData.includes(doc.data())) {
+             collData.push(doc.data())
+           }
+          // console.log(doc.data(),'data')
          })
          setGetId(docId)
          setGetInfo(collData)
@@ -83,24 +89,24 @@ export default function ChildrenList3() {
      })
    }
   
-  useEffect(() => {
+   useEffect(() => {
    
-    GetInfo.map((docs, index) => {
-      //const docDir3 = `DevData/${userID}/${GetId[index]}`
-      const docDir3 = `DevData/${userID}/children/${GetId[index]}`
-      const docRef = doc(db, docDir3);
-     // const coll:any = collection(db, docDir3)
-    return setDoc(docRef,
-         {
-           name: docs.name,
-           link: docs.link,
-           info: docs.info,
-           bonus: docs.bonus,
-           timeStamp: docs.timeStamp,
-         })
-     })
+     GetInfo.map((docs, index) => {
+       //const docDir3 = `DevData/${userID}/${GetId[index]}`
+       const docDir3 = `DevData/${userID}/children/${GetId[index]}`
+       const docRef = doc(db, docDir3);
+      // const coll:any = collection(db, docDir3)
+     return setDoc(docRef,
+          {
+            name: docs.name,
+            link: docs.link,
+            info: docs.info,
+            bonus: docs.bonus,
+            timeStamp: docs.timeStamp,
+          })
+      })
      
- },[])
+  },[])
   
   return (
     <div>

@@ -20,9 +20,9 @@ const LoginPage = () => {
             .then(async(userCredentals) => {
                 setAuthin(true)
                 const DevUser = userCredentals.user.uid
-                const docDir= `DevData/${DevUser}`
-                const docRef = doc(db, docDir);
-                await setDoc(docRef,{DevUser:DevUser})
+                // const docDir= `DevData/${DevUser}`
+                // const docRef = doc(db, docDir);
+                // await setDoc(docRef,{DevUser:DevUser})
                 navigate('/test')
             }).catch((error) => {
                 const errorCode = error.code
