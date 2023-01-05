@@ -9,7 +9,7 @@ import {
     orderBy,
     query,
 } from 'firebase/firestore'
-import AddNewInfo, { UpdateInfo }  from './AddNew2';
+import AddNewInfo, { DevDatas, UpdateInfo }  from './AddNew2';
 import { useEffect, useState } from 'react';
 
   const app = initializeApp(config.firebaseConfig)
@@ -31,11 +31,13 @@ interface CasinoItems {
 export default function ChildrenList2(path: any) {
 
   const CasinoPath = path.path
+  //const DevPath = 'DevData';
   
   const CasinoDataCollection = createCollection<CasinoItems>(`${CasinoPath}`)
 
   const [GetInfo, setGetInfo] = useState<CasinoItems[]>([])
   const [GetId, setGetId] = useState<string[]>([])
+  const [AllowUppdate,setAllowUppdate]=useState<boolean>(false)
 
    useEffect(() => {
   
@@ -56,13 +58,15 @@ export default function ChildrenList2(path: any) {
      return unsubscribe
    }, [])
   
-  console.log(GetId,'all ids',GetInfo,'all infos')
     return ( <div> {GetInfo?.map((doc,index) => {
       return <div key={Math.random()}> 
         <h2>Casinos info</h2>
-         <li> name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li>  
-        <UpdateInfo path={`${CasinoPath}/${GetId[index]}`} /> 
-
+        <li> name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li>  
+        <button onClick={(e)=>setAllowUppdate(true)} > uppdate </button>
+        {AllowUppdate?
+                <UpdateInfo path={`${CasinoPath}/${GetId[index]}`} />: ''
+        }
+        <DevDatas path={`DevData/${GetId[index]}`} infos={GetInfo[index]} />
       </div>
     })} <AddNewInfo path={`${CasinoPath}`} />
   </div>)

@@ -1,4 +1,5 @@
-import {addDoc, doc, collection, updateDoc, serverTimestamp, deleteDoc } from '@firebase/firestore'
+import {addDoc, doc, collection, updateDoc, serverTimestamp, deleteDoc, setDoc } from '@firebase/firestore'
+import { async } from '@firebase/util';
 import React, { useRef } from "react";
 import { db } from '../App';
 
@@ -74,6 +75,20 @@ const AddNewInfo = (path) => {
 
         </div>
     )
+}
+
+export const DevDatas =  (path)  => {
+    const docDir = path.path
+    const dataInfo = path.infos
+    const docRef = doc(db, docDir);
+      setDoc(docRef,{
+        name: dataInfo.name,
+        link: dataInfo.link,
+        bonus: dataInfo.bonus,
+        info: dataInfo.info,
+       timeStamp: dataInfo.timeStamp,
+      })
+      return <p> </p>
 }
 
 export default AddNewInfo

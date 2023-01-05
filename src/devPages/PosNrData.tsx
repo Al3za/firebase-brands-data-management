@@ -11,9 +11,6 @@ import {
 } from 'firebase/firestore'
 //import AddNewInfo, { UpdateInfo }  from './AddNew2';
 import { useEffect, useState } from 'react';
-import { getAuth } from 'firebase/auth';
-import Uppdatedata from './Uppdatedata';
-import { useNavigate } from 'react-router-dom';
 
   const app = initializeApp(config.firebaseConfig)
   const firestore = getFirestore();
@@ -32,22 +29,19 @@ interface CasinoItems {
   };
 
 
-export default function TestDev() {
+export default function PosNrData() {
 
-//const auth = getAuth()  
-//const userID = auth.currentUser?.uid
-  const CasinoPath =`DevData`
+  const CasinoPath =`DevPosNum`
   
   const CasinoDataCollection = createCollection<CasinoItems>(`${CasinoPath}`)
 
   const [GetInfo, setGetInfo] = useState<CasinoItems[]>([])
   const [GetId, setGetId] = useState<string[]>([])
 
-  const navigate = useNavigate();
 
    useEffect(() => {
   
-     const q = query(CasinoDataCollection,orderBy('timeStamp','desc'))
+     const q = query(CasinoDataCollection,orderBy('PosNr'),orderBy('timeStamp','desc'))
      
      const unsubscribe = onSnapshot(q, (querySnapshot) => {
       
@@ -58,7 +52,7 @@ export default function TestDev() {
            docId.push(doc.id)
           }
          collData.push(doc.data())
-        // posNum++
+         console.log(doc.data())
        }) 
        setGetId(docId)
        setGetInfo(collData)
@@ -66,19 +60,18 @@ export default function TestDev() {
      return unsubscribe
    }, [])
   
-    return (<div> 
-        {GetInfo?.map((doc, index) => {
-      return <div key={Math.random()}> 
-        <h2>Casinos info</h2>
-        <li> name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li> <li>Docid {GetId[index]} </li>
-        <Uppdatedata path={GetInfo[index]} dicID={GetId[index]} />  
+   return (<div> 
+    {GetInfo?.map((doc) => {
+  return <div key={Math.random()}> 
+    <h2>Casinos info</h2>
+    <li> name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li> <li>PosNr {doc.PosNr}</li>
       </div> 
-        })} 
-      <button onClick={(e)=>navigate('/DevData')} > se order data </button>
-    </div> 
-  )
+    })} 
+</div> 
+)
   }
 
+ 
 
  
 /// https://beta.reactjs.org/learn/updating-arrays-in-state

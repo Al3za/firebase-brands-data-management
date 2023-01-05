@@ -8,10 +8,10 @@ import { initializeApp } from 'firebase/app';
 import BrandsData from './pages/SetCasinoDataPage';
 import AuthRoute from './components/AuthRoute'
 import { getFirestore } from 'firebase/firestore';
-import TestPage from './pages/TestPage';
 import DevLogin from './pages/DevLogin';
 import DevRoute from './components/DevRoute';
 import TestDev from './devPages/TestDev';
+import PosNrData from './devPages/PosNrData';
 
 
 initializeApp(config.firebaseConfig);
@@ -27,8 +27,9 @@ function App() {
          <Route path='/login' element={<LoginPage />} />
         <Route path='/signUp' element={< SignUpPage />} />
          <Route path='/devLogin' element={<DevLogin/>} />
-         {/* <Route path='/test' element={ <DevRoute><TestPage/></DevRoute> } />   */}
-         <Route path='/test' element={ <DevRoute><TestDev/></DevRoute> } /> 
+      <Route path='/test' element={<DevRoute><TestDev /></DevRoute>} /> 
+      <Route path='/DevData' element={ <DevRoute><PosNrData/></DevRoute> } /> 
+
        </Routes>
   );
 }
