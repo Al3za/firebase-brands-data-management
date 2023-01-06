@@ -6,7 +6,7 @@ import { db } from '../App';
 const UppdateData = (src: { path: any, dicID: any }) => {
     
    const Inputs=  class NameForm extends React.Component<{}, {value: string}> {
-         constructor(props:any,path:any) {
+         constructor(props:any) {
              super(props);
              this.state = { value: '' };
   
