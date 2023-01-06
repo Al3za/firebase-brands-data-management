@@ -4,25 +4,23 @@ import { db } from '../App';
 
 
 const UppdateScroll = (path: any) => {
-    console.log(path,'teste')
-   const InputsTest=  class NameForm extends React.Component<{}, {name: string,link:string,bonus:number,info:string}> {
+    //console.log(path,'teste')
+   const InputsTest=  class NameForm extends React.Component<{}, {name: string,link:string,bonus:number,info:string, show:boolean }> {
          constructor(props:any) {
              super(props);
-             this.state = { name: '', bonus:0, link: '', info:'' };
+             this.state = { name: '', bonus:0, link: '', info:'', show:false };
   
              this.handleNameChange = this.handleNameChange.bind(this);
              this.handleBonusChange = this.handleBonusChange.bind(this);
              this.handleInfoChange = this.handleInfoChange.bind(this);
              this.handleLinkChange = this.handleLinkChange.bind(this);
              this.handleSubmit = this.handleSubmit.bind(this);
+             this.handleClick = this.handleClick.bind(this)
          }
   
          handleNameChange(event:any) {
              this.setState({
                  name: event.target.value,
-                // link: event.target.value,
-               //  bonus: event.target.value,
-                // info: event.target.value,
              });
        }
        
@@ -67,19 +65,37 @@ const UppdateScroll = (path: any) => {
         //         PosNr: this.state.name
         //    })
            //event.preventDefault();
-         }
+       }
+       
+       handleClick = () => {
+           let nr = 0
+           nr += 1
+           if (nr % 2 === 1) {
+               this.setState({
+                   show: true
+               })
+           } else if(nr %2===0) {
+            this.setState({
+                show: false
+            })
+           }
+       }
   
          render() {
              return (
-                 <form onSubmit={this.handleSubmit}>
-                     <label>
-                         Name <input type="text" value={this.state.name} onChange={this.handleNameChange} />
-                         bonus <input type="text" value={this.state.bonus} onChange={this.handleBonusChange} />
-                         info <input type="text" value={this.state.info} onChange={this.handleInfoChange} />
-                         link <input type="text" value={this.state.link} onChange={this.handleLinkChange} />
-                     </label>
-                     <input type="submit" value="Submit" />
-                 </form>
+                 <div> <button onClick={(e) => this.handleClick()} > uppdate/hide </button><br />
+                     {this.state.show ?
+                         <form onSubmit={this.handleSubmit}>
+                             <label>
+                                 Name <input type="text" value={this.state.name} onChange={this.handleNameChange} />
+                                 bonus <input type="text" value={this.state.bonus} onChange={this.handleBonusChange} />
+                                 info <input type="text" value={this.state.info} onChange={this.handleInfoChange} />
+                                 link <input type="text" value={this.state.link} onChange={this.handleLinkChange} />
+                             </label>
+                             <input type="submit" value="Submit" />
+                         </form>
+                         :''}
+                 </div>
              );
          }
      }
