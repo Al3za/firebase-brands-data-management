@@ -37,6 +37,8 @@ export default function PosNrData() {
 
   const [GetInfo, setGetInfo] = useState<CasinoItems[]>([])
   const [GetId, setGetId] = useState<string[]>([])
+  const [search,setSearch] = useState<any>('')
+
 
 
    useEffect(() => {
@@ -58,12 +60,20 @@ export default function PosNrData() {
        setGetInfo(collData)
      })
      return unsubscribe
-   }, [])
+   }, [search])
   
-   return (<div> 
+   const searchQuery = () => {
+    setGetInfo(GetInfo.filter((casInfos) => {
+     return casInfos.name.toLowerCase().includes(search.toLowerCase())
+    }))
+  }
+  
+   return (<div> search casino name <input type="text" value={search} onChange={(e)=>setSearch(e.target.value)} />
+     <button onClick={(e) => searchQuery()} > search </button>
+     <h2>Casinos info</h2>
     {GetInfo?.map((doc) => {
   return <div key={Math.random()}> 
-    <h2>Casinos info</h2>
+    <br/>
     <li> name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li> <li>PosNr {doc.PosNr}</li>
       </div> 
     })} 

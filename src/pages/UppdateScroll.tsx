@@ -1,11 +1,12 @@
-import {  doc,  serverTimestamp, setDoc } from 'firebase/firestore';
+import {  deleteDoc, doc,  serverTimestamp, updateDoc } from 'firebase/firestore';
 import React from 'react';
 import { db } from '../App';
 
 
 const UppdateScroll = (path: any) => {
-    //console.log(path,'teste')
-   const InputsTest=  class NameForm extends React.Component<{}, {name: string,link:string,bonus:number,info:string, show:boolean }> {
+    let nr = 0
+    const docDir = path.path
+    const InputsTest=  class NameForm extends React.Component<{}, {name: string,link:string,bonus:number,info:string, show:boolean }> {
          constructor(props:any) {
              super(props);
              this.state = { name: '', bonus:0, link: '', info:'', show:false };
@@ -44,46 +45,38 @@ const UppdateScroll = (path: any) => {
   
        async handleSubmit(event: any) {
            event.preventDefault();
-           console.log(
-               this.state.name,
-               this.state.link,
-               this.state.bonus,
-               this.state.info
-           )
-          //const DocIDs= dicID
-          // const docDir = `DevPosNum/${DocIDs}`;
-          // console.log(docDir,'direction',DocIDs,'ID')
-          //  const docRef:any = doc(db, docDir);
-         //  const PathData = path;
-           
-        //    await setDoc(docRef,{
-        //         name: PathData.name,
-        //         link: PathData.link,
-        //         bonus: PathData.bonus,
-        //         info: PathData.info,
-        //         timeStamp: serverTimestamp(),
-        //         PosNr: this.state.name
-        //    })
-           //event.preventDefault();
+           const docRef = doc(db, docDir);
+          await updateDoc(docRef, {
+              name: this.state.name,
+              link: this.state.link,
+              bonus: this.state.bonus,
+              info: this.state.info
+           })
+           event.preventDefault();
        }
        
-       handleClick = () => {
-           let nr = 0
+       handleClick = () => {  
            nr += 1
            if (nr % 2 === 1) {
                this.setState({
                    show: true
                })
-           } else if(nr %2===0) {
+           } else {
             this.setState({
                 show: false
             })
            }
-       }
+        }
+        
+        async handleDelete() {
+            const docRef = doc(db, docDir);
+            await deleteDoc(docRef)
+        }
   
          render() {
              return (
                  <div> <button onClick={(e) => this.handleClick()} > uppdate/hide </button><br />
+                       <button onClick={(e)=>this.handleDelete()} > delete </button>
                      {this.state.show ?
                          <form onSubmit={this.handleSubmit}>
                              <label>
@@ -92,7 +85,7 @@ const UppdateScroll = (path: any) => {
                                  info <input type="text" value={this.state.info} onChange={this.handleInfoChange} />
                                  link <input type="text" value={this.state.link} onChange={this.handleLinkChange} />
                              </label>
-                             <input type="submit" value="Submit" />
+                             <input type="submit" value="Submit" /><br/>
                          </form>
                          :''}
                  </div>

@@ -1,6 +1,6 @@
 import {addDoc, doc, collection, updateDoc, serverTimestamp, deleteDoc, setDoc } from '@firebase/firestore'
 import { async } from '@firebase/util';
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { db } from '../App';
 
 
@@ -44,6 +44,9 @@ import { db } from '../App';
 }
 
 const AddNewInfo = (path) => {
+
+    let nr=0
+    const [btn,setBtn]=useState()
     const name = useRef()
     const info = useRef()
     const link = useRef()
@@ -62,17 +65,27 @@ const AddNewInfo = (path) => {
         e.target.reset()
     }
 
-    return (
-        <div> 
-             <h1> Add casino info </h1>
-                <form onSubmit={handleSubmit} >
-                    <p>name <input ref={name} /></p>
-                    <p>link  <input ref={link} /></p>
-                    <p>bonus <input ref={bonus} /></p>
-                    <p>info  <input ref={info} /></p>
-                <button type="submit" >Add</button>
-            </form> 
+    const handleButton = () => {
+        nr += 1
+        if (nr % 2 === 0) {
+            setBtn(false)
+        } else {
+            setBtn(true)
+        }
+    }
 
+    return (
+        <div> {btn ? <div>
+            <h1> Add casino info </h1>
+            <form onSubmit={handleSubmit} >
+                <p>name <input ref={name} /></p>
+                <p>link  <input ref={link} /></p>
+                <p>bonus <input ref={bonus} /></p>
+                <p>info  <input ref={info} /></p>
+                <button type="submit" >Add</button>
+            </form>
+        </div> : ''}
+            <button onClick={(e)=>handleButton()} > Add casino </button>
         </div>
     )
 }
