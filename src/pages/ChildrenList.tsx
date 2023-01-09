@@ -32,13 +32,12 @@ interface CasinoItems {
 export default function ChildrenList2(path: any) {
 
   const CasinoPath = path.path
-  //const DevPath = 'DevData';
   
   const CasinoDataCollection = createCollection<CasinoItems>(`${CasinoPath}`)
 
   const [GetInfo, setGetInfo] = useState<CasinoItems[]>([])
   const [GetId, setGetId] = useState<string[]>([])
- // const [AllowUppdate,setAllowUppdate]=useState<boolean>(false)
+  const [search,setSearch] = useState<any>('')
 
    useEffect(() => {
   
@@ -57,12 +56,20 @@ export default function ChildrenList2(path: any) {
        setGetInfo(collData)
      })
      return unsubscribe
-   }, [])
+   }, [search])
   
-    return ( <div> {GetInfo?.map((doc,index) => {
-      return <div key={Math.random()}> 
-        <h2>Casinos info</h2>
-        <li> name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li>  
+  const searchQuery = () => {
+    setGetInfo(GetInfo.filter((casInfos) => {
+     return casInfos.name.toLowerCase().includes(search.toLowerCase())
+    }))
+  }
+  
+  return (<div> search casino name <input type="text" value={search} onChange={(e)=>setSearch(e.target.value)} />
+    <button onClick={(e) => searchQuery()} > search </button>
+    <h2>Casinos info</h2>
+    {GetInfo?.map((doc, index) => {
+      return <div key={Math.random()}><br/>
+      <li> name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li>  
         <UppdateScroll path={`${CasinoPath}/${GetId[index]}`} />
         <DevDatas path={`DevData/${GetId[index]}`} infos={GetInfo[index]} />
       </div>

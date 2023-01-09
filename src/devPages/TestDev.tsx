@@ -42,6 +42,8 @@ export default function TestDev() {
 
   const [GetInfo, setGetInfo] = useState<CasinoItems[]>([])
   const [GetId, setGetId] = useState<string[]>([])
+  const [search,setSearch] = useState<any>('')
+
 
   const navigate = useNavigate();
 
@@ -64,12 +66,19 @@ export default function TestDev() {
        setGetInfo(collData)
      })
      return unsubscribe
-   }, [])
+   }, [search])
   
-    return (<div> 
+   const searchQuery = () => {
+    setGetInfo(GetInfo.filter((casInfos) => {
+     return casInfos.name.toLowerCase().includes(search.toLowerCase())
+    }))
+  }
+  
+    return (<div> search casino name <input type="text" value={search} onChange={(e)=>setSearch(e.target.value)} />
+      <button onClick={(e) => searchQuery()} > search </button>
+      <h2>Casinos info</h2>
         {GetInfo?.map((doc, index) => {
-      return <div key={Math.random()}> 
-        <h2>Casinos info</h2>
+      return <div key={Math.random()}> <br/>
         <li> name {doc.name}</li> <li>bonus {doc.bonus}</li>  <li>info {doc.info} </li><li> link {doc.link} </li> <li>Docid {GetId[index]} </li>
         <Uppdatedata path={GetInfo[index]} dicID={GetId[index]} />  
       </div> 
