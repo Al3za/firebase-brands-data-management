@@ -3,8 +3,6 @@ import './App.css';
 import {Routes,Route} from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import SignUpPage from './pages/SignUpPage';
-import { config } from './config/Config';
-import { initializeApp } from 'firebase/app';
 import BrandsData from './pages/SetCasinoDataPage';
 import AuthRoute from './components/AuthRoute'
 import { getFirestore } from 'firebase/firestore';
@@ -14,8 +12,9 @@ import TestDev from './devPages/TestDev';
 import PosNrData from './devPages/PosNrData';
 
 
-initializeApp(config.firebaseConfig);
-const db = getFirestore()
+// const app = initializeApp(config.firebaseConfig);
+// export const storage= getStorage(app)
+ const db = getFirestore()
 
 export { db }
 
